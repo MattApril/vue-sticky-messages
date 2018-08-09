@@ -1,4 +1,4 @@
-import { EventBus } from './EventBus';
+var EventBus = require('./EventBus').EventBus;
 
 const MessageService = {
 

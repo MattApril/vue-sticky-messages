@@ -84,9 +84,9 @@
 </style>
 
 <script>
-    import { EventBus } from '../src/services/EventBus'
-    import VueScrollTo from 'vue-scrollto'
-    import { isElementInViewport } from '../src/utils'
+    var EventBus = require('./EventBus').EventBus;
+    //var VueScrollTo = require('vue-scrollto')
+    //import { isElementInViewport } from '../src/utils'
 
     /**
      * Maximum number of messages to always display (outside of the collapse section)
@@ -116,7 +116,7 @@
      */
     var fadeTimer = null;
 
-    export default {
+    module.exports = {
 
         props: {
             msg: String,
@@ -181,9 +181,9 @@
                 // if the message center is not in view, we need the user to see it - so scroll to it.
                 // this is a fallback mechanism for browsers that do not support sticky positioning.
                 // also note that it should always be in view for browsers that so, so it's also a feature detection in a way.
-                if( !isElementInViewport( this.$refs.message_center ) ) {
+                /* TODO: if( !isElementInViewport( this.$refs.message_center ) ) {
                     VueScrollTo.scrollTo(this.$refs.message_center, 300, this.scroll_config);
-                }
+                }*/
             },
 
             /**
