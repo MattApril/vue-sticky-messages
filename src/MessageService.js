@@ -1,6 +1,6 @@
-var EventBus = require('./EventBus').EventBus;
+import { EventBus } from './EventBus';
 
-const MessageService = {
+export default {
 
     add( type, msg ) {
         EventBus.$emit('app-msg', {
@@ -17,6 +17,4 @@ const MessageService = {
         this.add('error', msg);
     },
 
-};
-
-module.exports = MessageService;
+}

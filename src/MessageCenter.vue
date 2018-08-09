@@ -84,8 +84,8 @@
 </style>
 
 <script>
-    var EventBus = require('./EventBus').EventBus;
-    //var VueScrollTo = require('vue-scrollto')
+    import { EventBus } from './EventBus'
+    //import VueScrollTo from 'vue-scrollto'
     //import { isElementInViewport } from '../src/utils'
 
     /**
@@ -116,7 +116,7 @@
      */
     var fadeTimer = null;
 
-    module.exports = {
+    export default {
 
         props: {
             msg: String,
@@ -168,22 +168,18 @@
              */
             handleEvent: function( payload ) {
 
-                if( payload.infoMsg ) {
-                    this.addMsg('info', payload.infoMsg);
-                }
-                if( payload.successMsg ) {
-                    this.addMsg('success', payload.successMsg);
-                }
-                if( payload.errorMsg ) {
-                    this.addMsg('danger', payload.errorMsg);
+                console.log(payload);
+
+                if( payload.msg ) {
+                    this.addMsg( payload.type || 'info', payload.msg);
                 }
 
                 // if the message center is not in view, we need the user to see it - so scroll to it.
                 // this is a fallback mechanism for browsers that do not support sticky positioning.
                 // also note that it should always be in view for browsers that so, so it's also a feature detection in a way.
-                /* TODO: if( !isElementInViewport( this.$refs.message_center ) ) {
-                    VueScrollTo.scrollTo(this.$refs.message_center, 300, this.scroll_config);
-                }*/
+                //if( !isElementInViewport( this.$refs.message_center ) ) {
+                //    VueScrollTo.scrollTo(this.$refs.message_center, 300, this.scroll_config);
+                //}
             },
 
             /**

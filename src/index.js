@@ -1,5 +1,5 @@
-var MessageCenterComponent = require('./MessageCenter.vue')
-var MessageService = require('./MessageService')
+import MessageCenterComponent from './MessageCenter.vue'
+import MessageService from './MessageService' // user API that sends things to EventBus
 
 const MessageCenter = {
     install(Vue, options) {
@@ -13,4 +13,4 @@ if (typeof window !== 'undefined' && window.Vue) {
     window.Vue.use(MessageCenter)
 }
 
-module.exports = MessageCenter;
+export default MessageCenter;
