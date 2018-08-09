@@ -16,7 +16,7 @@
                 </button>
             </div>
 
-            <!-- Show MAX_VISIBLE messages -->
+            <!-- Show uncollapsed messages -->
             <div v-for="(message, index) in visibleMessages" class="message-row alert alert-dismissible" :class="['alert-' + message.type]" role="alert">
                 <!-- this close button only gets shown if we have one message, so we have some way to close it -->
                 <button v-show="messages.length == 1" @click="close" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -85,24 +85,6 @@
     import VueScrollTo from 'vue-scrollto'
 
     /**
-     * Maximum number of messages to always display (outside of the collapse section)
-     * @type {number}
-     */
-    const MAX_VISIBLE = 1;
-
-    /**
-     * Maximum number of messages to store
-     * @type {number}
-     */
-    const MAX_MESSAGES = 6;
-
-    /**
-     * Maximum time in seconds (without any interaction) before we automatically clear the messages
-     * @type {number}
-     */
-    const MAX_KEEP_ALIVE = 6;
-
-    /**
      * Stores setTimeout reference for countdown before calling fadeClose
      */
     var closeTimer = null;
@@ -115,13 +97,63 @@
     export default {
 
         props: {
+            /**
+             * Default type of message to display when no type is specified
+             */
+            defaultType: {
+                required: false,
+                type: String,
+                default: 'info'
+            },
+            /**
+             * Maximum number of messages to always display (outside of the collapse section)
+             * @type {number}
+             */
+            maxUncollapsed: {
+                type: Number,
+                required: false,
+                default: 1
+            },
+            /**
+             * Maximum number of messages to store
+             * @type {number}
+             */
+            maxMessages: {
+                type: Number,
+                required: false,
+                default: 5
+            },
+            /**
+             * Maximum time in seconds (without any other interaction) before we automatically clear the messages
+             * @type {number}
+             */
+            autoFadeDelay: {
+                type: Number,
+                required: false,
+                default: 6
+            },
+            /**
+             * Time in seconds that is takes for the fade animation to play out and fully close the notification.
+             */
+            fadeSeconds: {
+                type: Number,
+                required: false,
+                default: 3,
+            },
+            /**
+             * Default message when component is initialized
+             */
             msg: String,
+
+            /**
+             * Default type of message when component is initialized
+             */
             msgType: String,
         },
 
         created: function() {
             // listen for events on our EventBus
-            EventBus.$on('app-msg', this.handleEvent);
+            EventBus.$on('app-msg', this.handleMsgEvent);
             // listen for all clicks on the document
             window.addEventListener('click', this.handleDocumentClick);
         },
@@ -129,7 +161,7 @@
         mounted: function() {
             // display initial message
             if( this.msg ) {
-                var type = this.msgType || 'info';
+                var type = this.msgType || this.defaultType;
                 this.addMsg( type, this.msg );
             }
         },
@@ -137,7 +169,6 @@
         data: function(){
             return {
                 messages: [],
-                MAX_VISIBLE: MAX_VISIBLE,
                 showMore: false,
                 isClosing: false,
                 scroll_config: {
@@ -150,10 +181,10 @@
 
         computed: {
             visibleMessages: function() {
-                return this.messages.slice(0, MAX_VISIBLE);
+                return this.messages.slice(0, this.maxUncollapsed);
             },
             collapsedMessages: function() {
-                return this.messages.slice(MAX_VISIBLE);
+                return this.messages.slice(this.maxUncollapsed);
             }
         },
 
@@ -162,12 +193,9 @@
              * Handle an app-msg event
              * @param payload
              */
-            handleEvent: function( payload ) {
-
-                console.log(payload);
-
+            handleMsgEvent: function( payload ) {
                 if( payload.msg ) {
-                    var type = payload.type || 'info'
+                    var type = payload.type || this.defaultType;
                     this.addMsg(type, payload.msg);
 
                     // if the message center is not in view, we need the user to see it - so scroll to it.
@@ -196,11 +224,11 @@
 
                 // limit number of messages to store, for UI and sanity reasons
                 // removing from the end
-                if( this.messages.length > MAX_MESSAGES ) {
-                    this.messages.splice(MAX_MESSAGES);
+                if( this.messages.length > this.maxMessages ) {
+                    this.messages.splice(this.maxMessages);
                 }
 
-                this.restartCloseTimer( MAX_KEEP_ALIVE );
+                this.restartCloseTimer( this.autoFadeDelay );
             },
 
             /**
@@ -234,7 +262,7 @@
                 this.isClosing = true;
                 // wait for 3 seconds before actually closing, this gives the user a chance to prevent the close
                 // NOTE: if you change this time you must also update the css transition times.
-                fadeTimer = setTimeout( this.close, 3000 );
+                fadeTimer = setTimeout( this.close, this.fadeSeconds * 1000 );
             },
 
             /**

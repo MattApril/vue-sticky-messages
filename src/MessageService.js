@@ -11,10 +11,10 @@ export default {
      * @param type
      * @param msg
      */
-    add( type, msg ) {
+    send(msg, type) {
         EventBus.$emit('app-msg', {
-            type: type,
-            msg: msg
+            msg: msg,
+            type: type
         });
     },
 
@@ -22,32 +22,32 @@ export default {
      * Sends a success message
      * @param msg
      */
-    success( msg ) {
-        this.add('success', msg);
+    success(msg) {
+        this.send(msg, 'success');
     },
 
     /**
      * Sends an info message
      * @param msg
      */
-    info( msg ) {
-        this.add('info', msg);
+    info(msg) {
+        this.send(msg, 'info');
     },
 
     /**
      * Sends a warning message
      * @param msg
      */
-    warning( msg ) {
-        this.add('warning', msg);
+    warning(msg) {
+        this.send(msg, 'warning');
     },
 
     /**
      * Sends an error message
      * @param msg
      */
-    error( msg ) {
-        this.add('error', msg);
+    error(msg) {
+        this.send(msg, 'error');
     },
 
 }
