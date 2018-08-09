@@ -101,14 +101,6 @@
 
         props: {
             /**
-             * Default type of message to display when no type is specified
-             */
-            defaultType: {
-                required: false,
-                type: String,
-                default: 'info'
-            },
-            /**
              * Maximum number of messages to always display (outside of the collapse section)
              * @type {number}
              */
@@ -142,6 +134,14 @@
                 type: Number,
                 required: false,
                 default: 3,
+            },
+            /**
+             * Default type of message to display when no type is specified
+             */
+            defaultType: {
+                required: false,
+                type: String,
+                default: 'info'
             },
             /**
              * Default message when component is initialized
