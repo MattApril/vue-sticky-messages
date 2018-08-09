@@ -2,7 +2,7 @@
   "name": "vue-sticky-messages",
   "version": "1.0.0",
   "description": "Toast style user message plugin for Vue2",
-  "main": "dist/vue-sticky-messages2.js",
+  "main": "dist/vue-sticky-messages.js",
   "scripts": {
     "build": "rm -rf ./dist && webpack --config ./webpack.config.js --mode=production",
     "test": "echo \"Error: no test specified\" && exit 1"

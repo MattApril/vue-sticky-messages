@@ -41,21 +41,21 @@ var commonConfig = {
 module.exports = [
 
     // Config 1: For browser environment
-    /*merge(commonConfig, {
+    merge(commonConfig, {
         output: {
             path: path.resolve(__dirname + '/dist/'),
-            filename: 'vue-sticky-messages.js'
+            filename: 'vue-sticky-messages.min.js'
         },
-    }),*/
+    }),
 
     // Config 2: For Node-based development environments
     merge(commonConfig, {
         output: {
-            filename: 'vue-sticky-messages2.js',
+            filename: 'vue-sticky-messages.js',
             libraryTarget: 'umd',
 
             // These options are useful if the user wants to load the module with AMD
-            library: 'vie-sticky-messages',
+            library: 'vue-sticky-messages',
             umdNamedDefine: true
         }
     })
