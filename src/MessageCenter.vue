@@ -17,7 +17,7 @@
             </div>
 
             <!-- Show uncollapsed messages -->
-            <div v-for="(message, index) in visibleMessages" class="message-row alert alert-dismissible" :class="['alert-' + message.type]" role="alert">
+            <div v-for="(message, index) in visibleMessages" class="message-row alert alert-dismissible message-dismissible" :class="['alert-' + message.type]" role="alert">
                 <!-- this close button only gets shown if we have one message, so we have some way to close it -->
                 <button v-show="messages.length == 1" @click="close" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 {{message.text}}
@@ -26,7 +26,7 @@
             <!-- Show More -->
             <div v-show="collapsedMessages.length">
                 <div class="collapse" id="hiddenMessages">
-                    <div v-for="(message, index) in collapsedMessages" class="message-row alert alert-dismissible" :class="['alert-' + message.type]" role="alert">
+                    <div v-for="(message, index) in collapsedMessages" class="message-row alert alert-dismissible message-dismissible" :class="['alert-' + message.type]" role="alert">
                         {{message.text}}
                     </div>
                 </div>
@@ -66,6 +66,9 @@
     #message-box .message-row {
         margin: 0;
         padding: 5px;
+    }
+    #message-box .message-dismissible {
+        padding-right: 35px;
     }
 
     a {

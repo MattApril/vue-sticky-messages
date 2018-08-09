@@ -47,7 +47,7 @@ export default {
      * @param msg
      */
     error(msg) {
-        this.send(msg, 'error');
+        this.send(msg, 'danger');
     },
 
 }
