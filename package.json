@@ -5,6 +5,7 @@
   "main": "dist/vue-sticky-messages.js",
   "scripts": {
     "build": "rm -rf ./dist && webpack --config ./webpack.config.js --mode=production",
+    "dev": "webpack --config ./webpack.config.js --mode=development --output=dist/dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
