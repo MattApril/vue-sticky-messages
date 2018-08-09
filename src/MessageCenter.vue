@@ -85,8 +85,7 @@
 
 <script>
     import { EventBus } from './EventBus'
-    //import VueScrollTo from 'vue-scrollto'
-    //import { isElementInViewport } from '../src/utils'
+    import VueScrollTo from 'vue-scrollto'
 
     /**
      * Maximum number of messages to always display (outside of the collapse section)
@@ -171,15 +170,19 @@
                 console.log(payload);
 
                 if( payload.msg ) {
-                    this.addMsg( payload.type || 'info', payload.msg);
-                }
+                    var type = payload.type || 'info'
+                    this.addMsg(type, payload.msg);
 
-                // if the message center is not in view, we need the user to see it - so scroll to it.
-                // this is a fallback mechanism for browsers that do not support sticky positioning.
-                // also note that it should always be in view for browsers that so, so it's also a feature detection in a way.
-                //if( !isElementInViewport( this.$refs.message_center ) ) {
-                //    VueScrollTo.scrollTo(this.$refs.message_center, 300, this.scroll_config);
-                //}
+                    // if the message center is not in view, we need the user to see it - so scroll to it.
+                    // this is a fallback mechanism for browsers that do not support sticky positioning.
+                    // also note that it should always be in view for browsers that so, so it's also a feature detection in a way.
+                    var vm = this;
+                    Vue.nextTick( function(){
+                        if( !isElementInViewport(vm.$refs.message_center) ) {
+                            VueScrollTo.scrollTo(vm.$refs.message_center, 300, vm.scroll_config);
+                        }
+                    });
+                }
             },
 
             /**
@@ -288,5 +291,20 @@
             }
 
         }
+    }
+
+    /**
+     * Tests if an element is visible
+     * @param el
+     * @returns {boolean}
+     */
+    function isElementInViewport(el) {
+        var rect = el.getBoundingClientRect();
+        return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
+        );
     }
 </script>
