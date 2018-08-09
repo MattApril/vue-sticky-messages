@@ -4,7 +4,7 @@ import MessageService from './MessageService' // user API that sends things to E
 const MessageCenter = {
     install(Vue, options) {
         Vue.prototype.$messages = MessageService;
-        Vue.component('message-center', MessageCenterComponent);
+        Vue.component('vue-sticky-messages', MessageCenterComponent);
     }
 };
 
