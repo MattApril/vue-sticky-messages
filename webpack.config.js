@@ -31,7 +31,7 @@ var commonConfig = {
         ]
     },
     externals: {
-        vue: 'vue',
+        vue: 'Vue',
     },
     plugins: [
         new VueLoaderPlugin()

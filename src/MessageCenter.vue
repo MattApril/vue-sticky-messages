@@ -17,7 +17,7 @@
             </div>
 
             <!-- Show MAX_VISIBLE messages -->
-            <div v-for="(message, index) in visibleMessages" class="message-row alert alert-dismissible message-dismissible" :class="['alert-' + message.type]" role="alert">
+            <div v-for="(message, index) in visibleMessages" class="message-row alert alert-dismissible" :class="['alert-' + message.type]" role="alert">
                 <!-- this close button only gets shown if we have one message, so we have some way to close it -->
                 <button v-show="messages.length == 1" @click="close" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 {{message.text}}
@@ -26,7 +26,7 @@
             <!-- Show More -->
             <div v-show="collapsedMessages.length">
                 <div class="collapse" id="hiddenMessages">
-                    <div v-for="(message, index) in collapsedMessages" class="message-row alert alert-dismissible message-dismissible" :class="['alert-' + message.type]" role="alert">
+                    <div v-for="(message, index) in collapsedMessages" class="message-row alert alert-dismissible" :class="['alert-' + message.type]" role="alert">
                         {{message.text}}
                     </div>
                 </div>
@@ -67,9 +67,6 @@
         margin: 0;
         padding: 5px;
     }
-    #message-box .message-dismissible {
-        padding-right: 35px;
-    }
 
     a {
         color: black;
@@ -80,6 +77,23 @@
         opacity: 0;
         -webkit-transition: visibility 0s 3s, opacity 3s linear;
         transition: visibility 0s 3s, opacity 3s linear;
+    }
+
+    .close {
+        float: right;
+        font-size: 21px;
+        font-weight: bold;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        opacity: 0.2;
+        filter: alpha(opacity=20);
+
+        padding: 0;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        -webkit-appearance: none;
     }
 </style>
 
@@ -119,7 +133,7 @@
 
         props: {
             msg: String,
-            msgType: String
+            msgType: String,
         },
 
         created: function() {
