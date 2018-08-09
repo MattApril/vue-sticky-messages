@@ -1,0 +1,14 @@
+node_modules/*
+
+# JetBrains
+.idea
+.project
+.settings
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+**/.DS_Store
