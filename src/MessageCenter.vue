@@ -78,23 +78,6 @@
         -webkit-transition: visibility 0s 3s, opacity 3s linear;
         transition: visibility 0s 3s, opacity 3s linear;
     }
-
-    .close {
-        float: right;
-        font-size: 21px;
-        font-weight: bold;
-        line-height: 1;
-        color: #000;
-        text-shadow: 0 1px 0 #fff;
-        opacity: 0.2;
-        filter: alpha(opacity=20);
-
-        padding: 0;
-        cursor: pointer;
-        background: transparent;
-        border: 0;
-        -webkit-appearance: none;
-    }
 </style>
 
 <script>
