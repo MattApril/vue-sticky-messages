@@ -69,3 +69,6 @@ this.$messages.send( 'type', 'msg' );
         :fade-seconds="3"
 ></vue-sticky-messages>
 ```
+
+## TO DO
+* Remove bootstrap dependency
